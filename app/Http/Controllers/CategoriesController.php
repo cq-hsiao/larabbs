@@ -10,9 +10,12 @@ class CategoriesController extends Controller
 {
     //
 
-    public function show(Category $category)
+    public function show(Category $category,Request $request,Topic $topic)
     {
-        $topics = Topic::where('category_id',$category->id)->with('user','category')->paginate(20);
+//        $topics = Topic::where('category_id',$category->id)->with('user','category')->paginate(20);
+        $topics = $topic->withOrder($request->order)
+            ->where('category_id',$category->id)
+            ->paginate(20);
         return view('topics.index',compact('topics','category'));
     }
 }
