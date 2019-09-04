@@ -1,3 +1,4 @@
+
 @if (count($errors) > 0)
     <div class="alert alert-danger">
         <div class="mt-2"><b>有错误发生：</b></div>
