@@ -39,8 +39,15 @@ class TopicsController extends Controller
 	{
 		$topic->fill($request->all());
 		$topic->user_id = Auth::id();
-		$topic->save();
-		return redirect()->route('topics.show', $topic->id)->with('success', '帖子创建成功！');
+		$result = $topic->save();
+		if($result){
+            return redirect()->route('topics.show', $topic->id)->with('success', '帖子创建成功！');
+        } else {
+//		    $message = $request->all();
+//            dd($message);
+//            exit;
+		    return redirect()->back()->with('warning','帖子创建失败,可能存在非法字符。')->withInput($request->except('_token'));
+        }
 	}
 
 	public function edit(Topic $topic)

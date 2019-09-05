@@ -35,9 +35,9 @@
 
                                     <div class="form-group">
                                         <select class="form-control" name="category_id" required>
-                                            <option value="" hidden disabled selected>请选择分类</option>
+                                            <option value="{{ old('category_id') }}" hidden disabled selected>请选择分类</option>
                                             @foreach ($categories as $value)
-                                                <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                                <option value="{{ $value->id }}" @if(old('category_id') == $value->id) selected @endif>{{ $value->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
