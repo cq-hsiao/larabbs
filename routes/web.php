@@ -48,7 +48,8 @@ Route::resource('users','UsersController',['only'=>['show','edit','update']]);
 //Route::get('/users/{user}', 'UsersController@show')->name('users.show');
 //Route::get('/users/{user}/edit', 'UsersController@edit')->name('users.edit');
 //Route::patch('/users/{user}', 'UsersController@update')->name('users.update');
-Route::resource('topics', 'TopicsController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+Route::resource('topics', 'TopicsController', ['only' => ['index', 'create', 'store', 'update', 'edit', 'destroy']]);
+Route::get('topics/{topic}/{slug?}', 'TopicsController@show')->name('topics.show'); //? 意味着参数可选，这是为了兼容我们数据库中 Slug 为空的话题数据。这种写法可以同时兼容以下两种链接
 
 Route::resource('categories','CategoriesController',['only'=>'show']);
 
