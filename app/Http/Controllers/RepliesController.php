@@ -22,6 +22,7 @@ class RepliesController extends Controller
 
     public function show(Reply $reply)
     {
+
         return view('replies.show', compact('reply'));
     }
 
