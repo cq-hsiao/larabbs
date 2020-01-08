@@ -19,4 +19,13 @@ class TopicsController extends Controller
 
         return new TopicsResource($topic);
     }
+
+
+    public function update(TopicsRequest $request,Topic $topic)
+    {
+        $this->authorize('update',$topic);
+
+        $topic->update($request->all());
+        return new TopicsResource($topic);
+    }
 }
