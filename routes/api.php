@@ -103,10 +103,13 @@ Route::prefix('v1')
                     // 编辑登录用户信息
                     Route::patch('user','UsersController@update')
                         ->name('user.update');
-
+                    // 发布 更新 删除话题
                     Route::resource('topics','TopicsController')->only([
                         'store', 'update', 'destroy'
                     ]);
+                    // 发布回复
+                    Route::post('topics/{topic}/replies','RepliesController@store')
+                        ->name('topics.replies.store');
                 });
             });
     });
