@@ -85,12 +85,19 @@ Route::prefix('v1')
                 // 分类列表
                 Route::get('categories','CategoriesController@index')
                     ->name('categories.index');
+                // 话题列表，详情
                 Route::resource('topics','TopicsController')->only([
                     'index','show'
                 ]);
+                // 话题回复列表
+                Route::get('topics/{topic}/replies','RepliesController@index')
+                    ->name('topics.replies.index');
                 // 某个用户发布的话题
                 Route::get('users/{user}/topics', 'TopicsController@userIndex')
                     ->name('users.topics.index');
+                // 某个用户的回复列表
+                Route::get('users/{user}/replies','RepliesController@userIndex')
+                    ->name('users.replies.index');
 
                 // 登录后可以访问的接口
                 Route::middleware('auth:api')->group(function(){
