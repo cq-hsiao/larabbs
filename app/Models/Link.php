@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Cache;
 
 class Link extends Model
 {
+    protected $fillable = ['title', 'link'];
+
     public $cache_key = 'larabbs_links';
     protected $cache_expire_in_seconds = 1440 * 60;
 
