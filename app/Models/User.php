@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
+use Laravel\Passport\HasApiTokens;
+
 class User extends Authenticatable implements MustVerifyEmailContract,JWTSubject
 {
 //    use Notifiable,MustVerifyEmailTrait;
@@ -19,6 +21,7 @@ class User extends Authenticatable implements MustVerifyEmailContract,JWTSubject
     use MustVerifyEmailTrait;
     use Traits\ActiveUserHelper;
     use Traits\LastActivedAtHelper;
+    use HasApiTokens;
 
     use Notifiable {
         notify as protected laravelNotify;
@@ -124,5 +127,15 @@ class User extends Authenticatable implements MustVerifyEmailContract,JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    // Oauth 支持手机登录
+    public function findForPassport($username)
+    {
+        filter_var($username, FILTER_VALIDATE_EMAIL) ?
+            $credentials['email'] = $username :
+            $credentials['phone'] = $username;
+
+        return self::where($credentials)->first();
     }
 }
